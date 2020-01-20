@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IUGO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="ad.size" content="width=320,height=480">
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+
+    <main class="main">
+      <img src="images/cursor.png" class="cursor">
+      <div class="panel">
+        <img src="images/rocket.png">
+        <img src="images/shot.png" class="hidden">
+        <img src="images/hill.png" class="hidden">
+      </div>
+      <div style="background-image: url('images/1.jpg');" class="pickture"></div>
+      <div style="background-image: url('images/2.jpg');" class="pickture hidden"></div>
+      <div style="background-image: url('images/3.jpg');" class="pickture hidden"></div>
+      <section class="video">
+        <video class="funny-video" width="100%" playsinline muted>
+            <source src="video/1.mp4" type="video/mp4">
+        </video>
+        <video class="funny-video hidden" width="100%" playsinline muted>
+            <source src="video/2.mp4" type="video/mp4">
+        </video>
+        <video class="funny-video hidden" width="100%" playsinline muted>
+            <source src="video/3.mp4" type="video/mp4">
+        </video>
+      </section>
+
+      <section class="screen" onclick="cta()">
+        <img class="screen__logo" src="images/title.png">
+        <img class="screen__button" src="images/button.png">
+      </section>
+    </main>
+
+</body>
+<script>
+'use strict'
+
+window.onload = function () {
+
+  app()
+}
+
+function app() {
+  var buttons = document.querySelectorAll('.panel img'),
+      videos = document.querySelectorAll('.funny-video'),
+      images = document.querySelectorAll('.pickture'),
+      panel = document.querySelector('.panel'),
+      cursor = document.querySelector('.cursor'),
+      title = document.querySelector('.screen__logo'),
+      btn = document.querySelector('.screen__button'),
+      index = 0;
+
+  panel.onclick = function () {
+        images[index].classList.toggle('hidden')
+        panel.classList.toggle('hidden')
+        buttons[index].classList.toggle('hidden')
+        cursor.classList.toggle('hidden')
+        videos[index].play()
+        videos[index].addEventListener('ended',myHandler,false);
+        function myHandler(e) {
+          if (index === 3) {
+            videos[2].remove()
+            var screen = document.querySelector('.screen');
+            screen.classList.toggle('open');
+            setTimeout(() => {
+              title.classList.toggle('open');
+              setTimeout(() => {
+                btn.classList.toggle('open');
+              },500)
+            }, 500)
+          }else{
+            var next = index - 1;
+            videos[next].classList.add('hidden')
+            videos[next].remove()
+            videos[index].classList.toggle('hidden')
+            images[index].classList.toggle('hidden')
+            panel.classList.toggle('hidden')
+            buttons[index].classList.toggle('hidden')
+            cursor.classList.toggle('hidden')
+          }
+        }
+        index++;
+  }
+}
+
+
+function cta() {
+    FbPlayableAd.onCTAClick();
+
+    return;
+
+    var userAgent = navigator.userAgent || navigator.vendor;
+
+    var url = "https://apps.apple.com/ru/app/ifunny-hot-memes-and-videos/id429610587";
+    var android = "https://play.google.com/store/apps/details?id=mobi.ifunny&hl=ru";
+
+    if (/android/i.test(userAgent)) { url = android; }
+
+    try {
+        mraid.open(url);
+    } catch (e1) {
+        try {
+            MTRG.onCTAClick();
+        } catch (e2) {
+            try {
+                FbPlayableAd.onCTAClick();
+            } catch (e3) {
+                window.open(url);
+            }
+        }
+    }
+}
+
+
+
+
+</script>
+</html>

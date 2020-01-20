@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>plb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="ad.size" content="width=320,height=480">
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+
+    <main class="main">
+      <div class="start">
+      </div>
+      <div class="panel hidden">
+        <div class="zone">
+          <img src="images/Fire.png">
+        </div>
+        <div class="zone">
+          <img src="images/Kitchen.png">
+        </div>
+      </div>
+      <div class="room hidden">
+        <img src="images/Cool.png">
+        <img src="images/Heat.png">
+      </div>
+      <section class="video">
+        <video class="funny-video" id="mainVideo" width="100%" autoplay playsinline muted>
+            <source src="video/ft.m4v" type="video/mp4">
+        </video>
+      </section>
+
+      <div class="footer" onclick="cta()"></div>
+      <section class="screen" onclick="cta()"></section>
+    </main>
+
+</body>
+<!-- <script src="js/canvid.js"></script> -->
+<script>
+'use strict'
+
+window.onload = function () {
+  app()
+}
+
+function app() {
+  const vidos = document.getElementById('mainVideo'),
+        start = document.querySelector('.start'),
+        panel = document.querySelector('.panel'),
+        room = document.querySelector('.room'),
+        choise = document.querySelectorAll('.room img'),
+        zones = document.querySelectorAll('.zone');
+  let steps = 1;
+
+
+      setInterval(() => {
+        let time = vidos.currentTime;
+        console.log(time);
+        if (time > 1.9 && steps === 1) {
+          vidos.currentTime = 0;
+        }else if(time > 3.9 && steps === 2){
+          vidos.currentTime = 2;
+        }else if(time > 5.6 && steps === 3){
+          vidos.currentTime = 4.7;
+        }
+      }, 30);
+
+        start.addEventListener('click', function() {
+          start.classList.add('hidden');
+          panel.classList.remove('hidden');
+            steps++;
+            vidos.currentTime = 2;
+            return steps;
+        });
+
+        zones.forEach(function(zone, index) {
+          zone.addEventListener('click', function() {
+            panel.classList.add('hidden');
+            if (index === 0) {
+              steps++;
+              vidos.currentTime = 3.9;
+              setTimeout(() => {
+                room.classList.remove('hidden')
+              }, 800)
+              return steps;
+            }else{
+
+            }
+          });
+        });
+
+        choise.forEach(function(elem, index) {
+          elem.addEventListener('click', function() {
+            room.classList.add('hidden');
+            if (steps === 3 && index === 0) {
+              steps = 5;
+              vidos.currentTime = 17;
+              setTimeout(() => {
+                // room.classList.remove('hidden')
+              }, 800)
+              return steps;
+            }else{
+
+            }
+          });
+        });
+
+
+
+
+}
+
+
+
+
+
+
+</script>
+</html>

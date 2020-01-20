@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Playable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="ad.size" content="width=320,height=480">
+
+    <style>
+
+
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: 'starpro', sans-serif;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: #23135f;
+    }
+
+    main {
+        background: black;
+        position: relative;
+        /*float: left;*/
+        margin: auto;
+        max-width: 768px;
+        height: 100vh;
+    }
+
+    section {
+        position: relative;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .logo-wrap{
+      max-width: 100%;
+      padding: 0 30px;
+      position: relative;
+      z-index: 2;
+    }
+    .logo{
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .progress{
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: -70px;
+      padding: 0 50px;
+    }
+
+    .progress-container{
+      max-width: 300px;
+      width: 100%;
+    }
+
+    .progress-bg{
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .girl-container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .girl{
+      max-height: inherit;
+      max-width: 220px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .frame-top{
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: 100%;
+    }
+    .frame-bottom{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      max-width: 100%;
+      z-index: 2;
+    }
+
+    .carpet{
+      position: absolute;
+      z-index: 1;
+      bottom: -50px;
+    }
+
+    .panel{
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      z-index: 5;
+    }
+
+    .button{
+      transition: 0.3s all;
+      transform: scale(1);
+      cursor: pointer;
+    }
+
+    .button:hover{
+      transform: scale(1.1);
+    }
+    .button:active{
+      transform: scale(1.02);
+    }
+    .app{
+      background-image: url('assets/background.jpg');
+      background-size: cover;
+      background-position: top center;
+    }
+    .speech{
+      position: absolute;
+      right: -150px;
+      top: -20px;
+      z-index: 2;
+      max-width: 200px;
+    }
+    .girl-wrap{
+      position: relative;
+    }
+
+    @media screen and (max-width: 500px) {
+        .progress{
+          margin-top: -40px;
+        }
+    }
+    @media screen and (max-height: 700px) {
+        .girl-container{
+          margin-top: -25px;
+        }
+    }
+    @media screen and (max-width: 520px) {
+      .speech {
+        right: -100px;
+        top: 0px;
+        max-width: 150px;
+      }
+    }
+    @media screen and (max-width: 420px) {
+      .speech {
+          right: -59px;
+          top: 12px;
+          max-width: 115px;
+      }
+    }
+
+
+
+    </style>
+
+    <script>
+        var finished = false;
+        var clicked = false;
+        function onClick(n) {
+            if (clicked) {return;}
+            clicked = true;
+
+            var containers = [...document.querySelectorAll(".game-video-container")];
+            var el = containers.splice(n, 1)[0];
+
+            el.style.flex = "1 1 95%";
+            el.style.height = el.getBoundingClientRect().height * 2 +"px";
+            el.classList.add("chosen");
+            containers.forEach(x => {
+                x.style.borderWidth = 0;
+                x.style.boxShadow = "none";
+                x.style.flex = "0 0 0";
+                x.style.height = 0;
+            });
+
+            setTimeout(() => {
+                document.querySelector(".packshot").classList.add("shown");
+                finished = true;
+            }, 2100);
+        }
+
+        function cta() {
+            FbPlayableAd.onCTAClick();
+
+            return;
+
+            var userAgent = navigator.userAgent || navigator.vendor;
+
+            var url = "https://apps.apple.com/us/app/war-robots-multiplayer-battles/id806077016";
+            var android = "https://play.google.com/store/apps/details?id=com.pixonic.wwr&hl=en";
+
+            if (/android/i.test(userAgent)) { url = android; }
+
+            try {
+                mraid.open(url);
+            } catch (e1) {
+                try {
+                    MTRG.onCTAClick();
+                } catch (e2) {
+                    try {
+                        FbPlayableAd.onCTAClick();
+                    } catch (e3) {
+                        window.open(url);
+                    }
+                }
+            }
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(fitSize, typeof FbPlayableAd !== 'undefined' ? 500 : 1200);
+
+            document.addEventListener("click", function() {console.log("body click")})
+
+            document.querySelector("main").addEventListener("click", function (event) {
+                if (!finished) { event.stopPropagation(); }
+            });
+        })
+    </script>
+</head>
+<body>
+    <main>
+        <section class="app">
+            <img class="frame-top" src="assets/frame-up.png">
+            <img class="frame-bottom" src="assets/frame-bottom.png">
+            <div class="logo-wrap">
+              <img src="assets/logo.png" alt="" class="logo">
+            </div>
+            <div class="progress">
+              <div class="progress-container">
+                  <img src="assets/progress.png" class="progress-bg">
+                  <div class="progress-line">
+                    <div class="progress-line__progress"></div>
+                  </div>
+              </div>
+            </div>
+            <div class="girl-container">
+              <div class="girl-wrap">
+                <img src="assets/girl.gif" class="girl">
+                <img src="assets/speech2.png" class="speech">
+              </div>
+              <img src="assets/carpet.png" class="carpet">
+            </div>
+            <div class="panel">
+              <div class="button">
+                <img src="assets/love_button.png" alt="">
+              </div>
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,255 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Arial';
+  min-width: 320px;
+  -webkit-font-smoothing: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.main{
+  max-width: 768px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.video{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.title{
+  font-size: 32px;
+  font-weight: bolder;
+  margin-right: 10px;
+  position: absolute;
+  z-index: 4;
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-top: 13px;
+  bottom: 200px;
+}
+
+.screen{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-image: url('images/SplashScreen.jpg'); */
+  background-position: center;
+  background-size: cover;
+  padding: 25px;
+  padding-bottom: 30px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.screen__title{
+  font-size: 20px;
+  color: white;
+  letter-spacing: 0.5px;
+  font-weight: 300;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.screen__logo{
+  margin-top: 105px;
+  opacity: 0;
+  transform: scale(0.7);
+  transition-delay: 0.5s;
+  transition: 0.5s all;
+  width: 100%;
+  max-width: 396px;
+}
+
+.screen__button{
+  margin: 0 auto;
+  margin-top: 45px;
+  border-radius: 20px;
+  color: #131212;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  position: relative;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: 0.5s all;
+  width: 100%;
+  max-width: 349px;
+}
+
+
+.screen__button.open{
+  opacity: 1;
+  transform: scale(1);
+  animation: pulse 1s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.screen__button:hover{
+  animation: none;
+}
+
+.screen.open{
+  z-index: 10;
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+
+.screen__logo.open{
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pickture{
+  position: absolute;
+  z-index: 3;
+  background-size: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.panel{
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.panel{
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.zone{
+  width: 63%;
+  height: 12%;
+  position: absolute;
+  right: 0%;
+  top: 9%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 4% 5%;
+}
+
+.zone img {
+  height: 100%;
+}
+
+.zone:last-child{
+  right: 31%;
+  top: 21%;
+  width: 65%;
+  justify-content: flex-start;
+}
+
+.room{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 38%;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 11% 5%;
+}
+
+.room img{
+  width: 20%;
+}
+
+.start{
+  cursor: pointer;
+  position: absolute;
+  right: 19%;
+  top: 46%;
+  width: 28%;
+  height: 83px;
+  z-index: 3;
+  background-image: url('images/start.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.start:active{
+  background-image: url('images/start-hover.jpg');
+}
+
+.panel img:hover{
+  transform: scale(1.1);
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 13%;
+}
+.cursor{
+  width: 150px;
+  position: absolute;
+  z-index: 5;
+  left: -5px;
+  bottom: 130px;
+  animation: cursor 0.8s infinite ease-in-out;
+  transition: 0.3s all;
+}
+
+@keyframes cursor {
+  0%{
+    transform: translate(00px) scale(0.85);
+  }
+  50%{
+    transform: translate(30px, 30px) scale(0.75);
+  }
+  100%{
+    transform: translate(00px) scale(0.85);
+  }
+}
+
+.hidden{
+  display: none;
+}
+
+.funny-video{
+  width: 100%;
+  height: auto;
+}

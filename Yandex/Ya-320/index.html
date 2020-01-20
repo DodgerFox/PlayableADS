@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask.fm</title>
+    <!-- <link rel="stylesheet" href="common.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="ad.size" content="width=320,height=480">
+    <link rel="stylesheet" href="common-320x480.css">
+    <scripttype="text/javascript" src="https://tpc.googlesyndication.com/pagead/gadgets/html5/api/exitapi.js"> </script>
+</head>
+<body>
+
+
+    <main class="main">
+        <p class="old-icon">+0</p>
+        <h1 class="main-title">Выберите квартиру</h1>
+        <div class="choise" id="choise">
+          <ul>
+            <li class="choise-item" style="background-image: url('image-4.jpg');">
+                <h2 class="title">Уютная квартира 50 м²</h2>
+                <p class="subtitle">Цена — 30 000 ₽<br>От метро 15 минут пешком</p>
+                <div class="like"></div>
+                <div class="dislike"></div>
+            </li>
+
+            <li class="choise-item" style="background-image: url('image-3.jpg');">
+              <h2 class="title">Советская эклектика 33 м²</h2>
+              <p class="subtitle">Цена — 18 000 ₽<br>От метро 20 минут пешком</p>
+              <div class="like"></div>
+              <div class="dislike"></div>
+            </li>
+            <li class="choise-item" style="background-image: url('image-2.jpg');">
+              <h2 class="title">Царские покои 180 м²</h2>
+              <p class="subtitle">Цена — 90 000 ₽<br>От метро 5 минут пешком</p>
+              <div class="like"></div>
+              <div class="dislike"></div>
+            </li>
+            <li class="choise-item" style="background-image: url('image-1.jpg');">
+              <h2 class="title">Стильная квартира 90 м²</h2>
+              <p class="subtitle">Цена — 80 000 ₽<br>От метро 15 минут пешком</p>
+              <div class="like"></div>
+              <div class="dislike"></div>
+            </li>
+          </ul>
+        </div>
+        <div class="footer">
+          <div class="footer-swipe">
+            <img class="hand" src="hand-dark.svg">
+            <p>Свайпни<br>чтобы оценить</p>
+          </div>
+          <div class="footer-buttons">
+            <a href='#' class="footer-buttons__item footer-buttons__item_dislike">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="29" height="29" viewBox="0 0 29 29"><defs><path id="1wuqa" d="M504.396 4361.668l7.25-7.294-7.373-7.54 6.882-6.676 7.127 7.047 7.496-6.923 6.636 6.799-7.25 7.17 7.127 7.17-6.758 7.17-6.882-7.17-7.741 7.17z"/></defs><g><g transform="translate(-504 -4340)"><use fill="#dd414d" xlink:href="#1wuqa"/></g></g></svg>
+            </a>
+            <a href='#'  class="footer-buttons__item footer-buttons__item_like">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="38" height="30" viewBox="0 0 38 30"><defs><path id="eohia" d="M863.63 4355.65l6.198-6.313 8.523 8.416 16.27-15.947 5.867 6.202-22.248 22.148z"/></defs><g><g transform="translate(-863 -4341)"><use fill="#2acd8a" xlink:href="#eohia"/></g></g></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="screen" onclick="ExitApi.exit()">
+          <div class="screen-wrap">
+              <h2 class="screen__title">Больше вариантов в приложении</h2>
+              <img class="screen__logo" src="logo.svg">
+          </div>
+          <div class="screen-footer">
+            <div class="screen__button">Скачать</div>
+          </div>
+        </div>
+    </main>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.transform2d.js"></script>
+<script src="js/jquery.jTinder.js"></script>
+<script>
+'use strict'
+
+window.onload = function () {
+  app()
+  $("#choise").jTinder({
+    onDislike: function (item) {
+      if (item.index() === 0) {
+        $('.old-icon').addClass('gray')
+        $('.footer').addClass('hidden')
+        $('.screen').addClass('open');
+          final = true;
+        $('.screen').on('click', function () {
+        });
+      }
+    },
+    onLike: function (item) {
+      if (item.index() === 0) {
+        $('.old-icon').addClass('gray')
+        $('.footer').addClass('hidden')
+        $('.screen').addClass('open')
+          final = true;
+        $('.screen').on('click', function () {
+        });
+      }
+    },
+	animationRevertSpeed: 200,
+	animationSpeed: 400,
+	threshold: 1,
+	likeSelector: '.like',
+	dislikeSelector: '.dislike'
+});
+}
+
+function app(jTinder) {
+  var like = document.querySelector('.footer-buttons__item_like'),
+      dislike = document.querySelector('.footer-buttons__item_dislike');
+
+  like.addEventListener('click', () => {
+    $("#choise").jTinder('like');
+  })
+
+  dislike.addEventListener('click', () => {
+    $("#choise").jTinder('dislike');
+  })
+
+}
+
+var final = false;
+
+function clickHandler(event) {
+    if (!final) {
+        // console.log("exit prevented");
+        event.stopPropagation();
+    } else {
+        // console.log("creative exit");
+    }
+}
+
+document.querySelector("main").addEventListener("touch", clickHandler);
+document.querySelector("main").addEventListener("touchstart", clickHandler);
+document.querySelector("main").addEventListener("click", clickHandler);
+document.querySelector("main").addEventListener("pointerdown", clickHandler);
+document.querySelector("main").addEventListener("mousedown", clickHandler);
+document.querySelector("main").addEventListener("touchmove", clickHandler);
+
+
+
+</script>
+</html>
